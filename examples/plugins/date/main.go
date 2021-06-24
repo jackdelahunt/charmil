@@ -6,6 +6,8 @@ import (
 	"github.com/aerogear/charmil/pkg/factory"
 	"github.com/aerogear/charmil/pkg/localize"
 	"github.com/aerogear/charmil/pkg/logging"
+	"github.com/aerogear/charmil/validator"
+
 	"github.com/spf13/cobra"
 	"golang.org/x/text/language"
 )
@@ -38,7 +40,9 @@ func DateCommand() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:          opts.Localize.LocalizeByID("date.cmd.use"),
 		Short:        opts.Localize.LocalizeByID("date.cmd.short"),
+		Long:         opts.Localize.LocalizeByID("date.cmd.long"),
 		Example:      opts.Localize.LocalizeByID("date.cmd.example"),
+		Args:         cobra.ExactArgs(0),
 		SilenceUsage: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -47,6 +51,12 @@ func DateCommand() (*cobra.Command, error) {
 
 			return nil
 		},
+	}
+
+	// default validation provided by validator package
+	validationErr := validator.Validate(cmd)
+	if validationErr != nil {
+		return nil, validationErr
 	}
 
 	return cmd, nil
