@@ -54,13 +54,15 @@ func DateCommand() (*cobra.Command, error) {
 		},
 	}
 
-	var r validator.Rule = &validator.LengthRule{
-		Use:     validator.Limit{Min: 2, Max: 5},
-		Short:   validator.Limit{Min: 4, Max: 5},
-		Long:    validator.Limit{Min: 5, Max: 20},
-		Example: validator.Limit{Min: 5, Max: 30},
+	var r1 validator.Rule = &validator.LengthRule{
+		Limits: map[string]validator.Limit{
+			"Use":   {Min: 1, Max: 5},
+			"Short": {Min: 4, Max: 10},
+			"Long":  {Min: 5, Max: 20},
+		},
 	}
-	errr := r.Validate(cmd)
+
+	errr := r1.Validate(cmd)
 	fmt.Println(errr)
 
 	return cmd, nil
