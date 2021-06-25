@@ -1,6 +1,7 @@
 package date
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/aerogear/charmil/pkg/factory"
@@ -23,7 +24,7 @@ type Options struct {
 func DateCommand() (*cobra.Command, error) {
 
 	// Initialize localizer providing the language, locals and format of locals file
-	loc, err := localize.InitLocalizer(localize.Config{Language: language.English, Path: "examples/plugins/date/locals/en/en.yaml", Format: "yaml"})
+	loc, err := localize.InitLocalizer(localize.Config{Language: language.English, Path: "examples/plugins/date/locales/en/en.yaml", Format: "yaml"})
 	if err != nil {
 		return nil, err
 	}
@@ -53,11 +54,14 @@ func DateCommand() (*cobra.Command, error) {
 		},
 	}
 
-	// default validation provided by validator package
-	validationErr := validator.Validate(cmd)
-	if validationErr != nil {
-		return nil, validationErr
+	var r validator.Rule = &validator.LengthRule{
+		Use:     validator.Limit{Min: 2, Max: 5},
+		Short:   validator.Limit{Min: 4, Max: 5},
+		Long:    validator.Limit{Min: 5, Max: 20},
+		Example: validator.Limit{Min: 5, Max: 30},
 	}
+	errr := r.Validate(cmd)
+	fmt.Println(errr)
 
 	return cmd, nil
 }
