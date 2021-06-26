@@ -62,13 +62,13 @@ func DateCommand() (*cobra.Command, error) {
 		},
 	}
 
-	errr := r1.Validate(cmd)
+	errr := r1.Validate(cmd, true)
 	fmt.Println(errr)
 
 	// var r2 validator.Rule = &validator.MustPresent{
 	// 	Fields: []string{"Use", "Short", "Long", "Example", "SilenceUsage", "PreRun"},
 	// }
-	// errr := r2.Validate(cmd)
+	// errr := r2.Validate(cmd, true)
 	// fmt.Println(errr)
 
 	return cmd, nil
