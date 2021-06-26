@@ -54,22 +54,23 @@ func DateCommand() (*cobra.Command, error) {
 		},
 	}
 
-	var r1 validator.Rule = &validator.Length{
-		Limits: map[string]validator.Limit{
-			"Use":   {Min: 1, Max: -1},
-			"Short": {Min: 4, Max: 10},
-			"Long":  {Min: 5, Max: 20},
-		},
-	}
-
-	errr := r1.Validate(cmd, true)
-	fmt.Println(errr)
-
-	// var r2 validator.Rule = &validator.MustPresent{
-	// 	Fields: []string{"Use", "Short", "Long", "Example", "SilenceUsage", "PreRun"},
+	// var r1 validator.Rule = &validator.Length{
+	// 	Limits: map[string]validator.Limit{
+	// 		"Use":   {Min: 1, Max: 5},
+	// 		"Short": {Min: 4, Max: 10},
+	// 		"Long":  {Min: 5, Max: 20},
+	// 		"Not":   {Min: 2, Max: 22},
+	// 	},
 	// }
-	// errr := r2.Validate(cmd, true)
+
+	// errr := r1.Validate(cmd, true)
 	// fmt.Println(errr)
+
+	var r2 validator.Rule = &validator.MustPresent{
+		Fields: []string{"Use", "Short", "Long", "Example", "SilenceUsage", "PreRun", "Hi"},
+	}
+	errr := r2.Validate(cmd, true)
+	fmt.Println(errr)
 
 	return cmd, nil
 }
