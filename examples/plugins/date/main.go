@@ -1,13 +1,11 @@
 package date
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/aerogear/charmil/pkg/factory"
 	"github.com/aerogear/charmil/pkg/localize"
 	"github.com/aerogear/charmil/pkg/logging"
-	"github.com/aerogear/charmil/validator/rules"
 
 	"github.com/spf13/cobra"
 	"golang.org/x/text/language"
@@ -53,24 +51,6 @@ func DateCommand() (*cobra.Command, error) {
 			return nil
 		},
 	}
-
-	// r2 := &rules.MustPresent{
-	// 	Fields: []string{"Use", "Short", "Long", "Example", "SilenceUsage", "PreRun", "Hi"},
-	// }
-	// errr := r2.ValidateMustPresent(cmd, true)
-	// fmt.Println(errr)
-
-	ve := &rules.Length{
-		Limits: map[string]rules.Limit{
-			"Use":   {Min: 1, Max: 5},
-			"Short": {Min: 4, Max: 10},
-			"Long":  {Min: 5, Max: 20},
-			"Not":   {Min: 2, Max: 22},
-		},
-	}
-
-	errrrr := ve.ValidateLength(cmd, true)
-	fmt.Println(errrrr)
 
 	return cmd, nil
 }
