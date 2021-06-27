@@ -7,7 +7,7 @@ import (
 	"github.com/aerogear/charmil/pkg/factory"
 	"github.com/aerogear/charmil/pkg/localize"
 	"github.com/aerogear/charmil/pkg/logging"
-	"github.com/aerogear/charmil/validator"
+	"github.com/aerogear/charmil/validator/rules"
 
 	"github.com/spf13/cobra"
 	"golang.org/x/text/language"
@@ -54,23 +54,23 @@ func DateCommand() (*cobra.Command, error) {
 		},
 	}
 
-	// var r1 validator.Rule = &validator.Length{
-	// 	Limits: map[string]validator.Limit{
-	// 		"Use":   {Min: 1, Max: 5},
-	// 		"Short": {Min: 4, Max: 10},
-	// 		"Long":  {Min: 5, Max: 20},
-	// 		"Not":   {Min: 2, Max: 22},
-	// 	},
+	// r2 := &rules.MustPresent{
+	// 	Fields: []string{"Use", "Short", "Long", "Example", "SilenceUsage", "PreRun", "Hi"},
 	// }
-
-	// errr := r1.Validate(cmd, true)
+	// errr := r2.ValidateMustPresent(cmd, true)
 	// fmt.Println(errr)
 
-	var r2 validator.Rule = &validator.MustPresent{
-		Fields: []string{"Use", "Short", "Long", "Example", "SilenceUsage", "PreRun", "Hi"},
+	ve := &rules.Length{
+		Limits: map[string]rules.Limit{
+			"Use":   {Min: 1, Max: 5},
+			"Short": {Min: 4, Max: 10},
+			"Long":  {Min: 5, Max: 20},
+			"Not":   {Min: 2, Max: 22},
+		},
 	}
-	errr := r2.Validate(cmd, true)
-	fmt.Println(errr)
+
+	errrrr := ve.ValidateLength(cmd, true)
+	fmt.Println(errrrr)
 
 	return cmd, nil
 }
